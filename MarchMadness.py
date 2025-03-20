@@ -19,7 +19,8 @@ from sklearn.svm import SVC
 from sklearn import linear_model
 from sklearn import tree
 from sklearn.model_selection import cross_val_score
-from keras.utils import np_utils
+# from keras.utils import np_utils
+# from tensorflow.keras.utils import to_categorical
 from sklearn.neighbors import KNeighborsClassifier
 import matplotlib
 matplotlib.use('TkAgg')
@@ -64,7 +65,7 @@ curYear = int(input('What year are these predictions for?\n'))
 
 sample_sub_pd = pd.read_csv('Data/KaggleData/SampleSubmissionStage1.csv')
 sample_sub_pd2 = pd.read_csv('Data/KaggleData/SampleSubmissionStage2.csv')
-teams_pd = pd.read_csv('Data/KaggleData/Teams.csv')
+teams_pd = pd.read_csv('Data/KaggleData/MTeams.csv')
 
 ############################## TRAIN MODEL ##############################
 
@@ -107,7 +108,7 @@ def predictGame(team_1_vector, team_2_vector, home, modelUsed):
 def loadTeamVectors(years):
 	listDictionaries = []
 	for year in years:
-		curVectors = np.load("Data/PrecomputedMatrices/TeamVectors/" + str(year) + "TeamVectors.npy").item()
+		curVectors = np.load("Data/PrecomputedMatrices/TeamVectors/" + str(year) + "TeamVectors.npy", allow_pickle=True).item()
 		listDictionaries.append(curVectors)
 	return listDictionaries
 
